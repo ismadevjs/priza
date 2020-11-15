@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Creto - Home Two</title>
+    <!-- =================== META =================== -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="shortcut icon" href="assets-frontend/img/favicon.png" />
+    <!-- =================== STYLE =================== -->
+    <link rel="stylesheet" href="assets-frontend/css/slick.min.css" />
+    <link rel="stylesheet" href="assets-frontend/css/bootstrap-grid.css" />
+    <link rel="stylesheet" href="assets-frontend/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets-frontend/css/nice-select.css" />
+    <link rel="stylesheet" href="assets-frontend/css/animate.css" />
+    <link rel="stylesheet" href="assets-frontend/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/toastr.css">
+  </head>
+
+  <body id="home" class="home-dark">
+    <!--================ PRELOADER ================-->
+    <div class="preloader-cover">
+      <div class="preloader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <!--============== PRELOADER END ==============-->
+    <!-- ================= HEADER ================= -->
+    <header class="header header-dark">
+      <a href="#" class="nav-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      <div class="top-panel">
+        <div class="container">
+          <div class="top-panel-cover">
+            <div class="top-panel-left">
+              <ul class="header-cont">
+                <li>
+                  <a href="tel:+912345687"><i class="fa fa-phone"></i>+9123 456 87</a>
+                </li>
+                <li>
+                  <a href="mailto:creto@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>creto@gmail.com</a>
+                </li>
+              </ul>
+            </div>
+            <div class="top-panel-center">
+              <a href="index.html" class="logo"><img src="assets-frontend/img/logo-white.svg" alt="logo" /></a>
+            </div>
+            <div class="top-panel-right">
+              <ul class="icon-right-list">
+                <li>
+                  <a class="header-like" href="#"><i class="fa fa-heart" aria-hidden="true"></i><span>6</span></a>
+                </li>
+                <li>
+                  <a class="header-user" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+                </li>
+                <li>
+                  <a class="header-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-menu">
+        <div class="container">
+          <nav class="nav-menu">
+            <ul class="nav-list">
+              <li class="dropdown">
+                <a href="#">Home <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                <ul>
+                  <li><a href="index.html">Home One</a></li>
+                  <li class="active"><a href="home-two.html">Home Two</a></li>
+                </ul>
+              </li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li class="dropdown">
+                <a href="#">Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                <ul>
+                  <li><a href="about.html">About Us</a></li>
+                  <li><a href="news.html">News</a></li>
+                  <li><a href="404.html">Page error 404</a></li>
+                </ul>
+              </li>
+              <li><a href="contacts.html">Contacts</a></li>
+              <% if (user)  {%> <li><a href="/logout">Logout</a></li> <% }  %>
+            </ul>
+          </nav>
+          <div class="header-two-search">
+            <div class="header-search-icon"><img src="assets-frontend/img/loop-icon.svg" alt="" /></div>
+            <form class="subscribe-form">
+              <i class="fa fa-at" aria-hidden="true"></i>
+              <input class="inp-form" type="email" name="subscribe" placeholder="E-mail" />
+              <button type="submit" class="btn btn-form btn-green"><span>send</span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- =============== HEADER END =============== -->
