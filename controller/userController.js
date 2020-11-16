@@ -42,7 +42,7 @@ exports.loginPost = function (req, res) {
     .catch(e => {
       req.flash("errors", e);
       req.session.save(() => {
-        res.redirect("/admin/register");
+        res.redirect("/register");
       });
     });
 };
@@ -50,4 +50,24 @@ exports.logout = function (req, res) {
   req.session.destroy(() => {
     res.redirect("/");
   });
+};
+exports.forgotPassword = function (req, res) {
+  res.render("frontend/forgot-password");
+};
+exports.forgotPasswordPost = function (req, res) {
+  const user = new User(req.body, null, null, req.originalUrl);
+  user
+    .passwordForgot()
+    .then(() => {
+      req.flash("errors", "A link has been sent to your inbox!");
+      req.session.save(() => {
+        res.redirect("/login");
+      });
+    })
+    .catch(e => {
+      req.flash("errors", e);
+      req.session.save(() => {
+        res.redirect("/password-forgot");
+      });
+    });
 };

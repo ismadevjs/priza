@@ -5,10 +5,11 @@ const usersCollection = require("../db").db().collection("users");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const { ObjectID } = require("mongodb");
-const User = function (data, avatar, author) {
+const User = function (data, avatar, author, websiteUrl) {
   this.data = data;
   this.avatar = avatar;
   this.author = author;
+  this.websiteUrl = websiteUrl;
   this.errors = [];
 };
 let date = new Date();
@@ -312,6 +313,59 @@ User.prototype.becomeSeller = function () {
       }
     );
     resolve();
+  });
+};
+User.prototype.passwordForgot = function () {
+  return new Promise(async (resolve, reject) => {
+    await usersCollection.findOne({ email: this.data.email }, async (err, founded) => {
+      if (founded) {
+        console.log(founded.email);
+        ("use strict");
+        const nodemailer = require("nodemailer");
+        let theCode = Math.floor(Math.random() * 1000000000);
+        let theWebsite = this.websiteUrl;
+        // async..await is not allowed in global scope, must use a wrapper
+        async function main() {
+          // Generate test SMTP service account from ethereal.email
+          // Only needed if you don't have a real mail account for testing
+          let testAccount = await nodemailer.createTestAccount();
+
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: "olga.kohler25@ethereal.email", // generated ethereal user
+              pass: "XX1zR5KnvySDy5ScKt" // generated ethereal password
+            }
+          });
+
+          // send mail with defined transport object
+          let info = await transporter.sendMail({
+            from: '"Fred Foo 👻" <foo@example.com>', // sender address
+            to: founded.email, // list of receivers
+            subject: `${theWebsite}/password-forgot/${theCode}`, // Subject line
+            text: "Hello world?", // plain text body
+            html: "<b>Hello world?</b>" // html body
+          });
+
+          console.log("Message sent: %s", info.messageId);
+          // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+          // Preview only available when sending through an Ethereal account
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+          // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+        }
+
+        main().catch(console.error);
+
+        resolve();
+      } else {
+        console.log(err);
+        reject();
+      }
+    });
   });
 };
 module.exports = User;
