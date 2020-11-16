@@ -17,9 +17,6 @@ const upload = multer({ storage: storage });
 // frontend area
 router.get("/", userController.index);
 router.get("/items", userController.items);
-
-// backend area
-router.get("/admin", isAuthenticated.isAdminAuthenticated, backendController.index);
 router.get("/register", isAuthenticated.isAuthenticated, userController.register);
 router.post("/register", isAuthenticated.isAuthenticated, userController.registerPost);
 router.get("/login", isAuthenticated.isAuthenticated, userController.login);
@@ -30,6 +27,10 @@ router.post("/password-forgot", isAuthenticated.isAuthenticated, userController.
 router.get("/password-forgot/:email/:code", isAuthenticated.isAuthenticated, userController.code);
 router.post("/password-new", isAuthenticated.isAuthenticated, userController.newPassword);
 router.get("/404", userController.errorPage);
+
+// backend area
+router.get("/admin", isAuthenticated.isAdminAuthenticated, backendController.index);
+router.get("/admin/categories", isAuthenticated.isAdminAuthenticated, backendController.categories);
 // router.get("/admin/categories", isAuthenticated.isNotAuth, backendController.categories);
 // router.post("/admin/categories/add", isAuthenticated.isNotAuth, backendController.categoriesAdd);
 // router.post("/admin/categories/:id/edit", isAuthenticated.isNotAuth, backendController.categoriesEdit);
