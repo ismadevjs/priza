@@ -15,9 +15,6 @@ Category.prototype.validateCategory = function () {
   if (this.category.name == "") {
     this.errors.push("Name field should not be empty");
   }
-  if (this.category.slug == "") {
-    this.errors.push("Slug field should not be empty");
-  }
 };
 Category.prototype.add = function () {
   return new Promise(async (resolve, reject) => {
@@ -28,12 +25,12 @@ Category.prototype.add = function () {
       this.category = {
         author: ObjectID(this.author),
         name: this.category.name,
-        slug: this.category.slug.toLowerCase().replace(" ", "-"),
-        created_at: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
-        updated_at: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+        slug: this.category.name.toLowerCase().replace(" ", "-"),
+        created_at: date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " @ " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
+        updated_at: date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " @ " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
       };
       await categoryCollection
-        .findOne({ slug: this.category.slug })
+        .findOne({ slug: this.category.name })
         .then(async founded => {
           if (founded) {
             reject("Category already exists");
@@ -60,8 +57,8 @@ Category.prototype.edit = function () {
           $set: {
             author: ObjectID(this.author),
             name: this.category.name,
-            slug: this.category.slug.toLowerCase().replace(" ", "-"),
-            updated_at: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+            slug: this.category.name.toLowerCase().replace(" ", "-"),
+            updated_at: date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " @ " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
           }
         }
       );

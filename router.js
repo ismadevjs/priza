@@ -31,10 +31,9 @@ router.get("/404", userController.errorPage);
 // backend area
 router.get("/admin", isAuthenticated.isAdminAuthenticated, backendController.index);
 router.get("/admin/categories", isAuthenticated.isAdminAuthenticated, backendController.categories);
-// router.get("/admin/categories", isAuthenticated.isNotAuth, backendController.categories);
-// router.post("/admin/categories/add", isAuthenticated.isNotAuth, backendController.categoriesAdd);
-// router.post("/admin/categories/:id/edit", isAuthenticated.isNotAuth, backendController.categoriesEdit);
-// router.post("/admin/categories/:id/delete", isAuthenticated.isNotAuth, backendController.categoriesDelete);
-// router.post("/admin/categories/bulk_del", isAuthenticated.isNotAuth, backendController.categoriesBulkDelete);
-// router.get("/admin/categories/deleteAll", isAuthenticated.isNotAuth, backendController.categoriesAllDelete);
+router.post("/admin/categories/add", isAuthenticated.isAdminAuthenticated, backendController.categoriesAdd);
+// router.post("/admin/categories/:id/edit", isAuthenticated.isAdminAuthenticated, backendController.categoriesEdit);
+// router.post("/admin/categories/:id/delete", isAuthenticated.isAdminAuthenticated, backendController.categoriesDelete);
+// router.post("/admin/categories/bulk_del", isAuthenticated.isAdminAuthenticated, backendController.categoriesBulkDelete);
+// router.get("/admin/categories/deleteAll", isAuthenticated.isAdminAuthenticated, backendController.categoriesAllDelete);
 module.exports = router;
