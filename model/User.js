@@ -319,11 +319,19 @@ User.prototype.passwordForgot = function () {
   return new Promise(async (resolve, reject) => {
     await usersCollection.findOne({ email: this.data.email }, async (err, founded) => {
       if (founded) {
-        console.log(founded.email);
         ("use strict");
         const nodemailer = require("nodemailer");
         let theCode = Math.floor(Math.random() * 1000000000);
         let theWebsite = this.websiteUrl;
+        let theEmail = this.data.email;
+        await usersCollection.updateOne(
+          { email: founded.email },
+          {
+            $set: {
+              website_url: theCode
+            }
+          }
+        );
         // async..await is not allowed in global scope, must use a wrapper
         async function main() {
           // Generate test SMTP service account from ethereal.email
@@ -345,7 +353,7 @@ User.prototype.passwordForgot = function () {
           let info = await transporter.sendMail({
             from: '"Fred Foo 👻" <foo@example.com>', // sender address
             to: founded.email, // list of receivers
-            subject: `${theWebsite}/password-forgot/${theCode}`, // Subject line
+            subject: `${theWebsite}/${theEmail}/${theCode}`, // Subject line
             text: "Hello world?", // plain text body
             html: "<b>Hello world?</b>" // html body
           });
@@ -368,4 +376,17 @@ User.prototype.passwordForgot = function () {
     });
   });
 };
+
+User.prototype.checkIfCodeFromEmailIsTrue = function (req, res) {
+  return new Promise(async (resolve, reject) => {
+    await usersCollection.findOne({ email: this.data.email }, async (err, founded) => {
+      if (founded && founded.websiteUrl === this.data.code) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+};
+
 module.exports = User;

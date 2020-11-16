@@ -33,7 +33,7 @@ exports.loginPost = function (req, res) {
   user
     .access()
     .then(client => {
-      req.session.user = { username: client.username, email: client.email, role: client.role, joined: client.created_at };
+      req.session.user = { _id: client._id, username: client.username, email: client.email, role: client.role, joined: client.created_at };
       req.flash("errors", "Welcome Back!");
       req.session.save(() => {
         res.redirect("/");
@@ -55,7 +55,7 @@ exports.forgotPassword = function (req, res) {
   res.render("frontend/forgot-password");
 };
 exports.forgotPasswordPost = function (req, res) {
-  const user = new User(req.body, null, null, req.originalUrl);
+  const user = new User(req.body, null, null, req.get("host") + req.originalUrl);
   user
     .passwordForgot()
     .then(() => {
@@ -70,4 +70,24 @@ exports.forgotPasswordPost = function (req, res) {
         res.redirect("/password-forgot");
       });
     });
+};
+exports.code = function async(req, res) {
+  const user = new User({email : req.params.email, code : req.params.code});
+  user
+    .checkIfCodeFromEmailIsTrue()
+    .then(() => {
+      req.flash("errors", "Yes your the owner of the account!");
+      req.session.save(() => {
+        res.render("backend/new-password");
+      });
+    })
+    .catch(e => {
+      req.flash("errors", e);
+      req.session.save(() => {
+        res.redirect("/404");
+      });
+    });
+};
+exports.errorPage = function (req, res) {
+  res.render("backend/404");
 };

@@ -27,6 +27,8 @@ router.post("/login", isAuthenticated.isAuthenticated, userController.loginPost)
 router.get("/logout", userController.logout);
 router.get("/password-forgot", isAuthenticated.isAuthenticated, userController.forgotPassword);
 router.post("/password-forgot", isAuthenticated.isAuthenticated, userController.forgotPasswordPost);
+router.get("/password-forgot/:email/:code", isAuthenticated.isAuthenticated, userController.code);
+router.get("/404", userController.errorPage);
 // router.get("/admin/categories", isAuthenticated.isNotAuth, backendController.categories);
 // router.post("/admin/categories/add", isAuthenticated.isNotAuth, backendController.categoriesAdd);
 // router.post("/admin/categories/:id/edit", isAuthenticated.isNotAuth, backendController.categoriesEdit);
