@@ -42,7 +42,7 @@ exports.loginPost = function (req, res) {
     .catch(e => {
       req.flash("errors", e);
       req.session.save(() => {
-        res.redirect("/register");
+        res.redirect("/login");
       });
     });
 };
@@ -72,13 +72,16 @@ exports.forgotPasswordPost = function (req, res) {
     });
 };
 exports.code = function async(req, res) {
-  const user = new User({email : req.params.email, code : req.params.code});
+  const user = new User({ email: req.params.email, code: req.params.code });
   user
     .checkIfCodeFromEmailIsTrue()
     .then(() => {
       req.flash("errors", "Yes your the owner of the account!");
       req.session.save(() => {
-        res.render("backend/new-password");
+        res.render("backend/new-password", {
+          theWebUrl: req.params.email,
+          theWebCode: req.params.code
+        });
       });
     })
     .catch(e => {
@@ -90,4 +93,21 @@ exports.code = function async(req, res) {
 };
 exports.errorPage = function (req, res) {
   res.render("backend/404");
+};
+exports.newPassword = function (req, res) {
+  const user = new User(req.body);
+  user
+    .newPasswordGenerate()
+    .then(() => {
+      req.flash("errors", "You have successfully updated your password, Please Login!");
+      req.session.save(() => {
+        res.redirect("/login");
+      });
+    })
+    .catch(e => {
+      req.flash("errors", e);
+      req.session.save(() => {
+        res.redirect("/login");
+      });
+    });
 };

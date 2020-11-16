@@ -380,13 +380,33 @@ User.prototype.passwordForgot = function () {
 User.prototype.checkIfCodeFromEmailIsTrue = function (req, res) {
   return new Promise(async (resolve, reject) => {
     await usersCollection.findOne({ email: this.data.email }, async (err, founded) => {
-      if (founded && founded.websiteUrl === this.data.code) {
+      if (founded && JSON.stringify(founded.website_url) === this.data.code) {
         resolve();
       } else {
+        console.log(JSON.stringify(this.data.code));
         reject();
       }
     });
   });
 };
-
+User.prototype.newPasswordGenerate = function () {
+  return new Promise(async (resolve, reject) => {
+    await usersCollection.findOne({ email: this.data.weburl }, async (err, founded) => {
+      if (founded) {
+        if (this.data.password[0] === this.data.password[1]) {
+          await usersCollection.updateOne(
+            { email: this.data.weburl },
+            {
+              $set: {
+                password: bcrypt.hashSync(this.data.password[0]),
+                website_url: ""
+              }
+            }
+          );
+          resolve();
+        } else reject("Sorry The password don't match");
+      } else reject("Somthing went wrong");
+    });
+  });
+};
 module.exports = User;
