@@ -53,7 +53,7 @@ exports.categoriesDelete = function (req, res) {
       });
     })
     .catch(e => {
-      req.flash("errors", e);
+      req.flash("errors", "Somthing went wrong");
       req.session.save(() => {
         res.redirect("/admin/categories");
       });
