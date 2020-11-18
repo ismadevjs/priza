@@ -57,7 +57,7 @@ Category.prototype.edit = function () {
           $set: {
             author: ObjectID(this.author),
             name: this.category.name,
-            slug: this.category.name.toLowerCase().replace(" ", "-"),
+            slug: this.category.name.toLowerCase().replace(" ", "-").trim(),
             updated_at: date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear() + " @ " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
           }
         }

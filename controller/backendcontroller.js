@@ -25,3 +25,37 @@ exports.categoriesAdd = function (req, res) {
       });
     });
 };
+exports.categoriesEdit = function (req, res) {
+  const category = new Category(req.body, req.session.user._id, req.params.id);
+  category
+    .edit()
+    .then(() => {
+      req.flash("errors", "Category just Edited!");
+      req.session.save(() => {
+        res.redirect("/admin/categories");
+      });
+    })
+    .catch(e => {
+      req.flash("errors", e);
+      req.session.save(() => {
+        res.redirect("/admin/categories");
+      });
+    });
+};
+exports.categoriesDelete = function (req, res) {
+  const category = new Category(req.body, req.session.user._id, req.params.id);
+  category
+    .delete()
+    .then(() => {
+      req.flash("errors", "Category just Deleted!");
+      req.session.save(() => {
+        res.redirect("/admin/categories");
+      });
+    })
+    .catch(e => {
+      req.flash("errors", e);
+      req.session.save(() => {
+        res.redirect("/admin/categories");
+      });
+    });
+};
