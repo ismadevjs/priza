@@ -36,4 +36,5 @@ router.post("/admin/categories/:id/edit", isAuthenticated.isAdminAuthenticated, 
 router.post("/admin/categories/:id/delete", isAuthenticated.isAdminAuthenticated, backendController.categoriesDelete);
 // router.post("/admin/categories/bulk_del", isAuthenticated.isAdminAuthenticated, backendController.categoriesBulkDelete);
 // router.get("/admin/categories/deleteAll", isAuthenticated.isAdminAuthenticated, backendController.categoriesAllDelete);
+router.get("/admin/items", isAuthenticated.isAdminAuthenticated, backendController.items);
 module.exports = router;

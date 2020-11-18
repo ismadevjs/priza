@@ -5,7 +5,7 @@ exports.index = function (req, res) {
 };
 exports.categories = async function (req, res) {
   res.render("backend/categories", {
-    categories : await categoryCollection.find().toArray()
+    categories: await categoryCollection.find().toArray()
   });
 };
 exports.categoriesAdd = function (req, res) {
@@ -58,4 +58,7 @@ exports.categoriesDelete = function (req, res) {
         res.redirect("/admin/categories");
       });
     });
+};
+exports.items = function (req, res) {
+  res.render("backend/items");
 };

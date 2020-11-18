@@ -1,6 +1,9 @@
 const User = require("../model/User");
-exports.index = function (req, res) {
-  res.render("frontend/index");
+const categoryCollection = require("../db").db().collection("categories");
+exports.index = async function (req, res) {
+  res.render("frontend/index", {
+    categories : await categoryCollection.find().toArray()
+  });
 };
 exports.items = function (req, res) {
   res.render("frontend/items");

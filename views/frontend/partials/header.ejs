@@ -80,17 +80,9 @@
                   <li class="active"><a href="home-two.html">Home Two</a></li>
                 </ul>
               </li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="shop.html">Shop</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
-              <li class="dropdown">
-                <a href="#">Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                <ul>
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="news.html">News</a></li>
-                  <li><a href="404.html">Page error 404</a></li>
-                </ul>
-              </li>
+              <% categories.forEach(category => {%>
+                <li><a href="/category/<%=category.slug%>"><%= category.name %></a></li>
+              <% }); %>
               <li><a href="contacts.html">Contacts</a></li>
               <% if (user)  {%> <li><a href="/logout">Logout</a></li> <% }  %>
             </ul>
