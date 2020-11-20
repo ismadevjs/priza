@@ -62,3 +62,8 @@ exports.categoriesDelete = function (req, res) {
 exports.items = function (req, res) {
   res.render("backend/items");
 };
+exports.itemAdd = async function (req, res) {
+  res.render("backend/items-add", {
+    cateogries : await categoryCollection.find().toArray()
+  });
+};

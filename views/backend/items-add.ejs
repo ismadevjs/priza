@@ -1,0 +1,71 @@
+<%- include('partials/header'); %>
+
+<!--  BEGIN CONTENT PART  -->
+<div id="content" class="main-content">
+  <div class="layout-px-spacing">
+    <div class="row layout-top-spacing">
+
+
+             <div id="tableCheckbox" class="col-lg-12 col-12 layout-spacing">
+               <div class="row">
+                                <div id="basic" class="col-lg-12 layout-spacing">
+                                  <div class="statbox widget box box-shadow">
+                                      <div class="widget-header">
+                                          <div class="row">
+                                              <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                                  <h4>Add new item</h4>
+                                              </div>                 
+                                          </div>
+                                      </div>
+                                      <div class="widget-content widget-content-area">
+      
+                                          <div class="row">
+                                            <div class="col-lg-8 col-12 mx-auto">
+                                              <select class="selectpicker">
+                                                  <optgroup label="Select one category">
+                                                    <% cateogries.forEach(category => {%> 
+                                                      <option><%= category.name %></option>
+                                                    <% }); %>
+                                                  </optgroup>
+                                              </select>
+                                          </div>  
+                                              <div class="col-lg-8 col-12 mx-auto">
+                                                      <div class="form-group">
+                                                          <label for="t-text" class="sr-only">Name of the Item (Max 40 Characters)</label>
+                                                          <input id="t-text" type="text" name="name" placeholder="Name of the Item (Max 40 Characters)" class="form-control" required>
+                                                      </div>
+                                              </div>      
+                                              <div class="col-lg-8 col-12 mx-auto">
+                                                    <div class="form-group">
+                                                        <label for="t-text" class="sr-only">Item Description</label>
+                                                        <textarea id="t-text" type="text" name="description" placeholder="Enter them item description here..." class="form-control" required></textarea>
+                                                    </div>
+                                            </div>     
+                                            <div class="col-lg-8 col-12 mx-auto">
+                                              <div class="form-group">
+                                                  <label for="t-text" class="sr-only">Demo URL</label>
+                                                  <input id="t-text" type="text" name="demo" placeholder="Demo URL" class="form-control" required>
+                                              </div>
+                                            </div>    
+                                            <div class="col-lg-8 col-12 mx-auto">
+                                              	<!-- INPUT CONTAINER -->
+                                                <div class="form-group">
+                                                  <label for="item_tags" class="rl-label required">Item Tags 'Enter them item tags separated by a comma Ex : Photoshop, video ...'</label>
+                                                  <input type="text" id="item_tags" name="tags" placeholder="Enter them item tags separated by a comma...">
+                                                </div>
+                                                <!-- /INPUT CONTAINER -->
+                                            </div>                               
+                                          </div>
+      
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+
+
+    </div>
+  </div>
+  
+  <%-include('partials/footer');%>
+</div>
